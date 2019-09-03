@@ -2,22 +2,22 @@ variables {A B C D E F P Q R : Prop}
 
 namespace theorems 
 
-theorem or_simplification_right (A B : Prop) : (A ∨ B) ∧ ¬ B → A :=
-assume h1: (A ∨ B) ∧ ¬ B,
-show A, from or.elim (and.left h1)
-   (assume h: A, show A, from h)
-   (assume h: B, show A, from false.elim (and.right h1 h))
+	theorem or_simplification_right (A B : Prop) : (A ∨ B) ∧ ¬ B → A :=
+	assume h1: (A ∨ B) ∧ ¬ B,
+	show A, from or.elim (and.left h1)
+	   (assume h: A, show A, from h)
+	   (assume h: B, show A, from false.elim (and.right h1 h))
 
-theorem or_simplification_left (A B : Prop) : (A ∨ B) ∧ ¬ A → B :=
-assume h1: (A ∨ B) ∧ ¬ A,
-show B, from or.elim (and.left h1)
-   (assume h: A, show B, from false.elim (and.right h1 h))
-   (assume h: B, show B, from h)
+	theorem or_simplification_left (A B : Prop) : (A ∨ B) ∧ ¬ A → B :=
+	assume h1: (A ∨ B) ∧ ¬ A,
+	show B, from or.elim (and.left h1)
+	   (assume h: A, show B, from false.elim (and.right h1 h))
+	   (assume h: B, show B, from h)
 
-theorem and_simplification_left (A B: Prop) : ¬ (A ∧ B) ∧ A → ¬ B :=
-assume h: ¬ (A ∧ B) ∧ A,
-assume h1: B,
-show false, from h.left (and.intro h.right h1)
+	theorem and_simplification_left (A B: Prop) : ¬ (A ∧ B) ∧ A → ¬ B :=
+	assume h: ¬ (A ∧ B) ∧ A,
+	assume h1: B,
+	show false, from h.left (and.intro h.right h1)
 
 end theorems 
 
@@ -86,7 +86,6 @@ show (A ∧ C ∧ E) ∨ (A ∧ C ∧ F) ∨ (A ∧ D ∧ E) ∨ (A ∧ D ∧ F)
         show (A ∧ C ∧ E) ∨ (A ∧ C ∧ F) ∨ (A ∧ D ∧ E) ∨ (A ∧ D ∧ F) ∨ 
             (B ∧ C ∧ E) ∨ (B ∧ C ∧ F) ∨ (B ∧ D ∧ E) ∨ (B ∧ D ∧ F),
             from or.inr (or.inr (or.inr (or.inr (or.inr (or.inr (or.inr (and.intro h1 (and.intro h2 this))))))))) 
-
 
 lemma step_5 (h: (A ∨ B) ∧ (C ∨ D) ∧ (E ∨ F)) (h1: B) (h2: C) :  
         (A ∧ C ∧ E) ∨ (A ∧ C ∧ F) ∨ (A ∧ D ∧ E) ∨ (A ∧ D ∧ F) ∨ 
