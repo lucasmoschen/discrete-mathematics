@@ -72,6 +72,13 @@ show ((A ∧ B) ∨ (A ∧ ¬ B)), from or.elim (em B)
 
 -- exercício 7
 
+-- Eu concluo que de (A ∨ B) ∧ (C ∨ D) ∧ (E ∨ F), chego em  (A ∧ C ∧ E) ∨ (A ∧ C ∧ F) ∨ 
+-- (A ∧ D ∧ E) ∨ (A ∧ D ∧ F) ∨ (B ∧ C ∧ E) ∨ (B ∧ C ∧ F) ∨ (B ∧ D ∧ E) ∨ (B ∧ D ∧ F)
+-- Mostrei como derivei essa afirmação, mesmo que não foi o pedido. 
+
+variable disjuntive: (A ∧ C ∧ E) ∨ (A ∧ C ∧ F) ∨ (A ∧ D ∧ E) ∨ (A ∧ D ∧ F) ∨ 
+                     (B ∧ C ∧ E) ∨ (B ∧ C ∧ F) ∨ (B ∧ D ∧ E) ∨ (B ∧ D ∧ F) 
+
 lemma step_6 (h: (A ∨ B) ∧ (C ∨ D) ∧ (E ∨ F)) (h1: B) (h2: D) :  
         (A ∧ C ∧ E) ∨ (A ∧ C ∧ F) ∨ (A ∧ D ∧ E) ∨ (A ∧ D ∧ F) ∨ 
         (B ∧ C ∧ E) ∨ (B ∧ C ∧ F) ∨ (B ∧ D ∧ E) ∨ (B ∧ D ∧ F) :=

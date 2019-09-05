@@ -40,8 +40,33 @@ variable j1: (¬ x11 ∨ ¬ x23) ∧ (¬ x21 ∨ ¬ x33) ∧ (¬ x31 ∨ ¬ x43)
              (¬ x13 ∨ ¬ x21) ∧ (¬ x23 ∨ ¬ x31) ∧ (¬ x33 ∨ ¬ x41)
 variable j2: (¬ x13 ∨ ¬ x24) ∧ (¬ x23 ∨ ¬ x34) ∧ (¬ x33 ∨ ¬ x44) ∧  
              (¬ x14 ∨ ¬ x23) ∧ (¬ x24 ∨ ¬ x33) ∧ (¬ x34 ∨ ¬ x43)
+			 
+-- Quero provar que esse caminho é Hamiltoniano, logo essa sequência de "And's" é satisfeita. 
 
-theorem hamiltonian : x14 ∧ x21 ∧ x32 ∧ x43 :=
-show x14 ∧ x21 ∧ x32 ∧ x43, from sorry
+variable path:  x14 ∧ x21 ∧ x32 ∧ x43 
 
-             
+-- Vou demostrar que esse caminho satisfaz todas as condições
+
+lemma condition1 (p: x14 ∧ x21 ∧ x32 ∧ x43): (x11 ∨ x21 ∨ x31 ∨ x41) ∧ (x12 ∨ x22 ∨ x32 ∨ x42) ∧ 
+                                            (x13 ∨ x23 ∨ x33 ∨ x43) ∧ (x14 ∨ x24 ∨ x34 ∨ x44) :=
+show (x11 ∨ x21 ∨ x31 ∨ x41) ∧ (x12 ∨ x22 ∨ x32 ∨ x42) ∧ 
+     (x13 ∨ x23 ∨ x33 ∨ x43) ∧ (x14 ∨ x24 ∨ x34 ∨ x44),
+     from  and.intro (or.inr (or.inl p.right.left))
+                     (and.intro (or.inr (or.inr (or.inl (p.right.right.left))))
+                                (and.intro (or.inr (or.inr (or.inr (p.right.right.right)))) 
+                                           (or.inl p.left)))
+
+lemma condition3 (p: x14 ∧ x21 ∧ x32 ∧ x43): (x11 ∨ x12 ∨ x13 ∨ x14) ∧ (x21 ∨ x22 ∨ x23 ∨ x24) ∧ 
+                                             (x31 ∨ x32 ∨ x33 ∨ x34) ∧ (x41 ∨ x42 ∨ x43 ∨ x44) :=
+show (x11 ∨ x12 ∨ x13 ∨ x14) ∧ (x21 ∨ x22 ∨ x23 ∨ x24) ∧ 
+     (x31 ∨ x32 ∨ x33 ∨ x34) ∧ (x41 ∨ x42 ∨ x43 ∨ x44),
+     from and.intro (or.inr(or.inr(or.inr(p.left)))) 
+                    (and.intro (or.inl(p.right.left))
+                               (and.intro (or.inr(or.inl(p.right.right.left)))
+                                          (or.inr(or.inr(or.inl(p.right.right.right))))))
+
+lemma condition5_part1 (p: x14 ∧ x21 ∧ x32 ∧ x43) : (¬ x11 ∨ ¬ x23) ∧ (¬ x21 ∨ ¬ x33) ∧ 
+                        (¬ x31 ∨ ¬ x43) ∧  (¬ x13 ∨ ¬ x21) ∧ (¬ x23 ∨ ¬ x31) ∧ (¬ x33 ∨ ¬ x41) :=
+show (¬ x11 ∨ ¬ x23) ∧ (¬ x21 ∨ ¬ x33) ∧ (¬ x31 ∨ ¬ x43) ∧  
+     (¬ x13 ∨ ¬ x21) ∧ (¬ x23 ∨ ¬ x31) ∧ (¬ x33 ∨ ¬ x41),
+     from sorry 
