@@ -10,7 +10,7 @@ variables {x11 x12 x13 x14 x21 x22 x23 x24 x31 x32 x33 x34 x41 x42 x43 x44: Prop
 -- Quero provar que esse caminho é Hamiltoniano, logo essa sequência de "And's" é satisfeita. 
 variable path:  x14 ∧ x21 ∧ x32 ∧ x43
 
--- Também não queremos que: 
+-- Também queremos que: 
 variable not_path: ¬ x11 ∧ ¬ x12 ∧ ¬ x13 ∧ ¬ x22 ∧ ¬ x23 ∧ ¬ x24 ∧ 
                    ¬ x31 ∧ ¬ x33 ∧ ¬ x34 ∧ ¬ x41 ∧ ¬ x42 ∧ ¬ x44 
 
