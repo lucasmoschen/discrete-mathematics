@@ -15,7 +15,7 @@ variable not_path: ¬ x11 ∧ ¬ x12 ∧ ¬ x13 ∧ ¬ x22 ∧ ¬ x23 ∧ ¬ x24
                    ¬ x31 ∧ ¬ x33 ∧ ¬ x34 ∧ ¬ x41 ∧ ¬ x42 ∧ ¬ x44 
 
 -- Vou demostrar que esse caminho satisfaz todas as condições
-
+-- Cada nó ocupa uma posição. 
 lemma condition1 (p: x14 ∧ x21 ∧ x32 ∧ x43) (np: ¬ x11 ∧ ¬ x12 ∧ ¬ x13 ∧ ¬ x22 ∧ ¬ x23 ∧ ¬ x24 ∧ 
                                                  ¬ x31 ∧ ¬ x33 ∧ ¬ x34 ∧ ¬ x41 ∧ ¬ x42 ∧ ¬ x44) : 
 (x11 ∨ x21 ∨ x31 ∨ x41) ∧ (x12 ∨ x22 ∨ x32 ∨ x42) ∧ (x13 ∨ x23 ∨ x33 ∨ x43) ∧ (x14 ∨ x24 ∨ x34 ∨ x44) :=
@@ -26,7 +26,8 @@ have h4: (x14 ∨ x24 ∨ x34 ∨ x44), from or.inl p.left,
 show (x11 ∨ x21 ∨ x31 ∨ x41) ∧ (x12 ∨ x22 ∨ x32 ∨ x42) ∧ 
      (x13 ∨ x23 ∨ x33 ∨ x43) ∧ (x14 ∨ x24 ∨ x34 ∨ x44),
      from  and.intro h1 (and.intro h2 (and.intro h3 h4))
-                                    
+
+-- o nó não pode ocupar duas posições.                
 lemma condition2_node1 (p: x14 ∧ x21 ∧ x32 ∧ x43) (np: ¬ x11 ∧ ¬ x12 ∧ ¬ x13 ∧ ¬ x22 ∧ ¬ x23 ∧ ¬ x24 ∧ 
                                                        ¬ x31 ∧ ¬ x33 ∧ ¬ x34 ∧ ¬ x41 ∧ ¬ x42 ∧ ¬ x44) :
 (¬ x12 ∨ ¬ x22) ∧ (¬ x12 ∨ ¬ x32) ∧ (¬ x12 ∨ ¬ x42) ∧ (¬ x22 ∨ ¬ x32) ∧ (¬ x22 ∨ ¬ x42) ∧ (¬ x32 ∨ ¬ x42) :=
@@ -71,6 +72,7 @@ show  (¬ x14 ∨ ¬ x24) ∧ (¬ x14 ∨ ¬ x34) ∧ (¬ x14 ∨ ¬ x44) ∧
       from and.intro (or.inr h1) (and.intro (or.inr h2) (and.intro (or.inr h3) 
            (and.intro (or.inl h1) (and.intro (or.inr h3) (or.inl h2)))))
 
+-- Cada posição deve ser ocupada por um nó
 lemma condition3 (p: x14 ∧ x21 ∧ x32 ∧ x43) (np: ¬ x11 ∧ ¬ x12 ∧ ¬ x13 ∧ ¬ x22 ∧ ¬ x23 ∧ ¬ x24 ∧ 
                                                  ¬ x31 ∧ ¬ x33 ∧ ¬ x34 ∧ ¬ x41 ∧ ¬ x42 ∧ ¬ x44) :
 (x11 ∨ x12 ∨ x13 ∨ x14) ∧ (x21 ∨ x22 ∨ x23 ∨ x24) ∧ (x31 ∨ x32 ∨ x33 ∨ x34) ∧ (x41 ∨ x42 ∨ x43 ∨ x44) :=
@@ -81,6 +83,7 @@ show (x11 ∨ x12 ∨ x13 ∨ x14) ∧ (x21 ∨ x22 ∨ x23 ∨ x24) ∧
                                (and.intro (or.inr(or.inl(p.right.right.left)))
                                           (or.inr(or.inr(or.inl(p.right.right.right))))))
 
+-- Cada posição pode ser ocupada po apenas um nó. 
 lemma condition4_position1 (p: x14 ∧ x21 ∧ x32 ∧ x43) (np: ¬ x11 ∧ ¬ x12 ∧ ¬ x13 ∧ ¬ x22 ∧ ¬ x23 ∧ ¬ x24 ∧ 
                                                        ¬ x31 ∧ ¬ x33 ∧ ¬ x34 ∧ ¬ x41 ∧ ¬ x42 ∧ ¬ x44) :
 (¬ x11 ∨ ¬ x12) ∧ (¬ x11 ∨ ¬ x13) ∧ (¬ x11 ∨ ¬ x14) ∧ (¬ x12 ∨ ¬ x13) ∧ (¬ x12 ∨ ¬ x14) ∧ (¬ x13 ∨ ¬ x14) :=
@@ -126,7 +129,7 @@ show  (¬ x41 ∨ ¬ x42) ∧ (¬ x41 ∨ ¬ x43) ∧ (¬ x41 ∨ ¬ x44) ∧
            (and.intro (or.inl h2) (and.intro (or.inl h2) (or.inr h3)))))                
 
 -- (1,3) e (3,4) não pertencem ao grafo, portanto não podem ser subsequentes.  
-
+-- Nós não adjacentes não podem fazer parte do caminho de forma adjacente.
 lemma condition5_13 (p: x14 ∧ x21 ∧ x32 ∧ x43) (np: ¬ x11 ∧ ¬ x12 ∧ ¬ x13 ∧ ¬ x22 ∧ ¬ x23 ∧ ¬ x24 ∧ 
                                                        ¬ x31 ∧ ¬ x33 ∧ ¬ x34 ∧ ¬ x41 ∧ ¬ x42 ∧ ¬ x44) : 
 (¬ x11 ∨ ¬ x23) ∧ (¬ x21 ∨ ¬ x33) ∧ (¬ x31 ∨ ¬ x43) ∧  (¬ x13 ∨ ¬ x21) ∧ (¬ x23 ∨ ¬ x31) ∧ (¬ x33 ∨ ¬ x41) :=
