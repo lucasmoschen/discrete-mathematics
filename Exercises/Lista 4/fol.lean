@@ -34,11 +34,12 @@ constant I : U → Prop
 
 variable ha : ∀ x : U , N(x) → lt z x
 
-variable hb : ∃ x : U, I(x) → I(z)
+variable hb1 : ∀ x : U, N(x) ∧ I(x) → I(z)
+variable hb2 : ∃ x : U, N(x) ∧ I(x) → I(z) 
 
 variable hc : ¬ (∃ x : U, N(x) →  lt x z) 
 
-variable hd : ∀ x : U, ¬ I(x) ∧ (∀ y : U, I(y) ∧ lt y x) → I(x) 
+variable hd : ∀ x : U, ¬ I(x) ∧ (∀ y : U, lt y x → I(y)) → I(x) 
 
 variable he : ¬ (∃ x : U, (∀ y : U, lt y x))
 
