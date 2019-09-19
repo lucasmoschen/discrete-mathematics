@@ -59,18 +59,9 @@ variable BlueUsed: ∃ x : People, DressColor x Blue ∧
                    (∀ y : People, ¬ (y = x) → ¬ (DressColor y Blue))
 
 -- This conditions are importants to use some relations with the dresses in this particular case
-variable a: (DressColor Ana Black ∨ DressColor Ana White ∨ DressColor Ana Blue) ∧
-            ¬ (DressColor Ana Black ∧ DressColor Ana White) ∧ 
-            ¬ (DressColor Ana Black ∧ DressColor Ana Blue) ∧ 
-            ¬ (DressColor Ana Blue ∧ DressColor Ana White)
-variable c: (DressColor Claudia Black ∨ DressColor Claudia White ∨ DressColor Claudia Blue) ∧
-            ¬ (DressColor Claudia Black ∧ DressColor Claudia White) ∧ 
-            ¬ (DressColor Claudia Black ∧ DressColor Claudia Blue) ∧ 
-            ¬ (DressColor Claudia Blue ∧ DressColor Claudia White)
-variable m: (DressColor Maria Black ∨ DressColor Maria White ∨ DressColor Maria Blue) ∧
-            ¬ (DressColor Maria Black ∧ DressColor Maria White) ∧ 
-            ¬ (DressColor Maria Black ∧ DressColor Maria Blue) ∧ 
-            ¬ (DressColor Maria Blue ∧ DressColor Maria White)
+variable a: (DressColor Ana Black ∨ DressColor Ana White ∨ DressColor Ana Blue)
+variable c: (DressColor Claudia Black ∨ DressColor Claudia White ∨ DressColor Claudia Blue)
+variable m: (DressColor Maria Black ∨ DressColor Maria White ∨ DressColor Maria Blue)
 
 -- We know Ana always says the truth and Claudia doesn't. 
 variable AnaBlue: DressColor Ana Blue → DressColor Ana White
@@ -84,8 +75,7 @@ variable ClaudiaBlack: DressColor Claudia Black → ¬ (DressColor Claudia Blue)
 -- Note that Maria is not necessary, because we do not know if she says truth
 
 -- Variable that needed to be proved
-variable conclusion: (DressColor Ana Black) ∧ 
+def conclusion: Prop := 
+            (DressColor Ana Black) ∧ 
             (DressColor Claudia White) ∧ 
-            (DressColor Maria Blue) 
-
-
+            (DressColor Maria Blue)
