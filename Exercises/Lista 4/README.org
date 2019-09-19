@@ -1,0 +1,10 @@
+
+Lista 4
+
+- complete o nome dos integrantes do grupo no topo de cada arquivo
+  Lean.
+
+- Complete os exercicios conforme indicado.
+
+- Ao final, basta fazer commit e push para submeter suas respostas até
+  <2019-09-20 Fri> as 9:00AM.
