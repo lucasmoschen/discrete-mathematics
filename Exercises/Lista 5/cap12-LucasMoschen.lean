@@ -1,4 +1,3 @@
-import data.set
 open set
 
 /- 
@@ -68,9 +67,15 @@ end
 
 -- ex 3
 
-section 
+section
     variables {I U : Type}
     variables {A : I → set U} {B : I → set U} {C : set U}
+
+    def Union (A : I → set U) : set U := { x | ∃ i : I, x ∈ A i }
+    def Inter (A : I → set U) : set U := { x | ∀ i : I, x ∈ A i }
+
+    notation `⋃` binders `, ` r:(scoped f, Union f) := r
+    notation `⋂` binders `, ` r:(scoped f, Inter f) := r
 
     theorem Inter.intro {x : U} (h : ∀ i, x ∈ A i) : x ∈ ⋂ i, A i :=
         by simp; assumption
@@ -113,6 +118,11 @@ end
 section 
     variable  {U : Type}
     variables A B C : set U
+
+    @[refl] theorem subset.refl (a : set U) : a ⊆ a := assume x, id
+
+    @[trans] theorem subset.trans {a b c : set U} (ab : a ⊆ b) (bc : b ⊆ c) : a ⊆ c :=
+        assume x h, bc (ab h)
 
     example (h1 : A ⊆ B) (h2 : B ⊆ C) : A ⊆ C :=
         subset.trans h1 h2
