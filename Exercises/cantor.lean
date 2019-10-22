@@ -2,9 +2,9 @@ import data.set
 
 variables X Y: Type 
 
-def sobrejetiva (f : X → Y) : Prop := ∀ y, ∃ x, f x = y
+def surjective {X: Type} {Y: Type} (f : X → Y) : Prop := ∀ y, ∃ x, f x = y
 
-theorem Cantor : ∀ (A: set X), ¬ ∃ (f: A → set A),  sobrejetiva A (set A) f :=
+theorem Cantor : ∀ (A: set X), ¬ ∃ (f: A → set A),  surjective f :=
 
     begin
         intro A,
