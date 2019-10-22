@@ -1,5 +1,4 @@
 import data.set 
-open set function
 
 variables X Y: Type 
 
@@ -24,5 +23,3 @@ theorem Cantor : ∀ (A: set X), ¬ ∃ (f: A → set A),  sobrejetiva A (set A)
                 rw (eq.symm h3) at h5,
                 apply h4 h5,                     
     end
-
-
