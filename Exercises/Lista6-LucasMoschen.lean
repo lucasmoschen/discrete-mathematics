@@ -1,3 +1,6 @@
+-- Lucas Moschen
+-- Teorema de Cantor
+
 import data.set
 
 variables X Y: Type 
