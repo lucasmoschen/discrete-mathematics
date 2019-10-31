@@ -38,3 +38,18 @@ section
             (assume h3: b = a, eq.symm h3))
         (assume h: a = b, h)
 end
+
+-- Exercício 2
+
+section
+    parameters {A : Type} {R : A → A → Prop}
+    parameter (reflR : reflexive R)
+    parameter (transR : transitive R)
+
+    def S (a b : A) : Prop := R a b ∧ R b a
+
+    example : transitive S :=
+        assume x y z,
+        assume h1 h2,
+        and.intro (transR h1.left h2.left) (transR h2.right h1.right)
+end
