@@ -71,3 +71,13 @@ section
 end
 
 -- Exercício 4
+
+open nat
+
+example : 1 ≤ 4 :=
+have h1: 1 <  1 + 1, from lt_succ_self 1, 
+have h2: (1 + 1) < (1 + 1) + 1, from lt_succ_self (1 + 1),
+have h3: (1 + 1 + 1) < (1 + 1 + 1) + 1, from lt_succ_self (1 + 1 + 1),
+have h4: 4 = 1 + 1 + 1 + 1, by simp,
+have h5: 1 ≤ (1 + 1 + 1) + 1, from le_of_lt (lt_trans h1 (lt_trans h2 h3)),
+eq.subst h4 h5 
