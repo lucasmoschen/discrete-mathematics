@@ -4,6 +4,8 @@
 
 -- Exercício 1
 
+import init.data.set 
+
 open function int algebra
 
 section 
@@ -65,4 +67,64 @@ section
         calc
         v1 x = v1 (u (v2 x)) : by rw h2
         ... = v2 x          : by rw h1)
+end
+
+-- Exercício 2
+
+section 
+
+    open function set
+
+    variables {X Y : Type}
+    variable  f : X → Y
+    variables A B : set X
+
+    example : f '' (A ∪ B) = f '' A ∪ f '' B :=
+    eq_of_subset_of_subset
+    (assume y,
+        assume h1 : y ∈ f '' (A ∪ B),
+        exists.elim h1 $
+        assume x h,
+        have h2 : x ∈ A ∪ B, from h.left,
+        have h3 : f x = y, from h.right,
+        or.elim h2
+        (assume h4 : x ∈ A,
+            have h5 : y ∈ f '' A, from ⟨x, h4, h3⟩,
+            show y ∈ f '' A ∪ f '' B, from or.inl h5)
+        (assume h4 : x ∈ B,
+            have h5 : y ∈ f ''  B, from ⟨x, h4, h3⟩,
+            show y ∈ f '' A ∪ f '' B, from or.inr h5))
+    (assume y,
+        assume h2 : y ∈ f '' A ∪ f '' B,
+        or.elim h2
+        (assume h3 : y ∈ f '' A,
+            exists.elim h3 $
+            assume x h,
+            have h4 : x ∈ A, from h.left,
+            have h5 : f x = y, from h.right,
+            have h6 : x ∈ A ∪ B, from or.inl h4,
+            show y ∈ f '' (A ∪ B), from ⟨x, h6, h5⟩)
+        (assume h3 : y ∈ f '' B,
+            exists.elim h3 $
+            assume x h,
+            have h4 : x ∈ B, from h.left,
+            have h5 : f x = y, from h.right,
+            have h6 : x ∈ A ∪ B, from or.inr h4,
+            show y ∈ f '' (A ∪ B), from ⟨x, h6, h5⟩))
+
+    -- remember, x ∈ A ∩ B is the same as x ∈ A ∧ x ∈ B
+    example (x : X) (h1 : x ∈ A) (h2 : x ∈ B) : x ∈ A ∩ B :=
+    and.intro h1 h2
+
+    example (x : X) (h1 : x ∈ A ∩ B) : x ∈ A :=
+    and.left h1
+
+    -- Fill in the proof below.
+    -- (It should take about 8 lines.)
+
+    example : f '' (A ∩ B) ⊆ f '' A ∩ f '' B :=
+    assume y,
+    assume h1 : y ∈ f '' (A ∩ B),
+    show y ∈ f '' A ∩ f '' B, from sorry
+
 end
