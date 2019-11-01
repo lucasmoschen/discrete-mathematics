@@ -53,3 +53,21 @@ section
         assume h1 h2,
         and.intro (transR h1.left h2.left) (transR h2.right h1.right)
 end
+
+-- Exercício 3
+
+section
+  parameters {A : Type} {a b c : A} {R : A → A → Prop}
+  parameter (Rab : R a b)
+  parameter (Rbc : R b c)
+  parameter (nRac : ¬ R a c)
+
+  -- Prove one of the following two theorems:
+
+  theorem R_is_not_strict_partial_order :
+    ¬(irreflexive R ∧ transitive R) :=
+  assume h: irreflexive R ∧ transitive R, 
+  show false, from nRac (h.right Rab Rbc)
+end
+
+-- Exercício 4
