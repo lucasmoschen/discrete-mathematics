@@ -3,8 +3,7 @@
 -- Lucas Machado Moschen
 
 -- Exercício 1
-
-import init.data.set 
+import data.set 
 
 open function int algebra
 
@@ -125,6 +124,19 @@ section
     example : f '' (A ∩ B) ⊆ f '' A ∩ f '' B :=
     assume y,
     assume h1 : y ∈ f '' (A ∩ B),
-    show y ∈ f '' A ∩ f '' B, from sorry
+    show y ∈ f '' A ∩ f '' B, from 
+    begin
+        apply and.intro, 
+        cases h1 with x h2,  
+            have h3: x ∈ A ∧ f x = y, 
+                from and.intro (h2.left.left) h2.right,
+            apply exists.intro x, 
+            exact h3,
+        cases h1 with x h2,
+            have h3: x ∈ B ∧ f x = y,
+                from and.intro (h2.left.right) h2.right,
+            apply exists.intro x,
+            exact h3 
+    end
 
 end
