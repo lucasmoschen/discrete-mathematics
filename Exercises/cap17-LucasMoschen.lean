@@ -1,3 +1,7 @@
+-- Lista 8
+
+-- Lucas Machado Moschen
+
 open nat
 
 --1.a.
@@ -79,7 +83,7 @@ nat.rec_on n
     )
 
 --2.a.
-example : ∀ m n k : nat, n ≤ m → n + k ≤ m  + k := 
+theorem summing_k: ∀ m n k : nat, n ≤ m → n + k ≤ m + k := 
 begin 
     assume m n k, 
     intro h1,
@@ -91,26 +95,44 @@ begin
     apply lt_of_le_of_lt h2 h3
 end
 
---2.d.
-example : ∀ m n : nat, m ≥ n → m = n ∨ m ≥ n+1 := 
+--2.b.
+example : ∀ m n k : nat, n + k ≤ m + k → n ≤ m := 
 begin 
-    assume m n, 
-    apply nat.rec_on n, 
+    assume m n k, 
+    apply nat.rec_on k, 
+    intro h, exact h,
+    assume k',
+    intros ih h, 
+    repeat {rw add_succ at h},
+    have h1: n + k' ≤ m + k', from le_of_succ_le_succ h,
+    apply ih h1,
+end
+
+--2.c.
+example : ∀ m n k : nat, n ≤ m → n * k ≤ m * k := 
+begin
+    assume m n k, 
     intro h, 
-        apply nat.rec_on m, 
-        exact or.inl (eq.refl 0),
-    intros n h, 
-        cases h with h1 h2, 
-            rw h1, 
-            exact or.inr dec_trivial,
-            have h3: succ n ≥ n, from le_of_lt (lt_succ_self n),
-            exact or.inr (le_trans h2 h3),
-        intros n h h1, 
-                
-end 
+    apply nat.rec_on k, 
+        apply less_than_or_equal.refl, 
+    assume k',
+    intro ih, 
+        repeat {rw mul_succ},
+        have h1: n*k' + n ≤ m*k' + n, from summing_k _ _ _ ih, 
+        have h2: m*k' + n ≤ m*k' + m, from add_le_add_left h (m*k'), 
+        apply le_trans h1 h2, 
+end
 
-    
-
+--2.d.
+example : ∀ m n : nat, m ≥ n → m = n ∨ m ≥ n+1 :=  
+assume m n, 
+begin
+    assume h, 
+    cases lt_or_eq_of_le h with h1 h2,
+    have h3: succ n ≤ m, from h1, 
+    apply or.inr h3, 
+    apply or.inl (eq.symm h2)
+end                
 
 --2.e.
 
@@ -123,35 +145,3 @@ begin
         have h1: n < succ n, from lt_succ_self n,
         apply le_of_lt (lt_of_le_of_lt h h1), 
 end
-
-/-
---2.b.
-example : ∀ m n k : nat, n + k ≤ m + k → n ≤ m := 
-begin 
-    assume m n k, 
-    apply nat.rec_on k, 
-    intro zh,
-        exact zh, 
-    intros k ih h, 
-        repeat {rw add_succ at h},
-        have h1: n + k < succ (n + k), from lt_succ_self (n+k),              
-        have h2: n + k < succ (m + k), from lt_of_lt_of_le h1 h,
-        have h3: n + k ≤ m + k, from sorry, 
-    apply ih h3,              
-end
-
-
---2.c.
-example : ∀ m n k : nat, n ≤ m → n * k ≤ m * k := 
-assume m n k, 
-nat.rec_on k
-(show n ≤ m → n*0 ≤ m*0, from
-    assume : n ≤ m, 
-    show n*0 ≤ m*0, by rw [mul_zero,mul_zero])
-(assume k, 
- assume ih: n ≤ m → n * k ≤ m * k, 
- show n ≤ m → n * succ k ≤ m * succ k, from 
- assume : n ≤ m, 
-)
-
--/
